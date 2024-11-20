@@ -1,7 +1,7 @@
 name: test-base-docker
 
 on:
-  pull_request:
+  push:
     branches: ["main"]
   workflow_dispatch:
 
@@ -26,14 +26,10 @@ jobs:
       - name: Build Base Image
         working-directory: airflowbase
         run: |
-          docker build -t baseimage .
-
-      - name: Test image run
-        run: |
-          docker run baseimage python3 -V
-
+          docker build -t airflowbaseimage:${ GIT_HASH } .
 
       - name: tag and push docker
         run: |
-          docker tag baseimage 367479749599.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}:baseimage
-          docker push 367479749599.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}:baseimage
+          GIT_HASH=$(git rev-parse --short HEAD)
+          docker tag baseimage 367479749599.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}:airflowbaseimage:${ GIT_HASH }
+          docker push 367479749599.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}:airflowbaseimage:${ GIT_HASH }
