@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+source /root/airflow/venv/bin/activate
 # Initialize the Airflow database
 airflow db init
 
