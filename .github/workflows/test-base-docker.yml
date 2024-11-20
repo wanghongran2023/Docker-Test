@@ -26,6 +26,7 @@ jobs:
       - name: Build Base Image
         working-directory: airflowbase
         run: |
+          GIT_HASH=$(git rev-parse --short HEAD)
           docker build -t airflowbaseimage:${ GIT_HASH } .
 
       - name: tag and push docker
