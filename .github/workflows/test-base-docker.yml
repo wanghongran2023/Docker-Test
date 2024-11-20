@@ -27,10 +27,10 @@ jobs:
         working-directory: airflowbase
         run: |
           GIT_HASH=$(git rev-parse --short HEAD)
-          docker build -t airflowbaseimage:${ GIT_HASH } .
+          docker build -t airflowbaseimage:${GIT_HASH} .
 
       - name: tag and push docker
         run: |
           GIT_HASH=$(git rev-parse --short HEAD)
-          docker tag baseimage 367479749599.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}:airflowbaseimage:${ GIT_HASH }
-          docker push 367479749599.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}:airflowbaseimage:${ GIT_HASH }
+          docker tag baseimage 367479749599.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}:airflowbaseimage:${GIT_HASH}
+          docker push 367479749599.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}:airflowbaseimage:${GIT_HASH}
