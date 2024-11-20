@@ -24,7 +24,7 @@ jobs:
         run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin 367479749599.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
       - name: Build Base Image
-        working_directory:airflowbase
+        working_directory: airflowbase
         run: |
           docker build -t baseimage .
 
