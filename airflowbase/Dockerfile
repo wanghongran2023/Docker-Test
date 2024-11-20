@@ -20,7 +20,7 @@ RUN python3.9 -m pip install --upgrade pip
 RUN mkdir ~/airflow && \
     cd ~/airflow && \
     python3.9 -m venv venv && \
-    source venv/bin/activate && \
+    . venv/bin/activate && \
     export AIRFLOW_VERSION=2.7.3 && \
     export PYTHON_VERSION="$(python --version | cut -d ' ' -f2 | cut -d '.' -f1-2)" && \
     export CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt" && \
