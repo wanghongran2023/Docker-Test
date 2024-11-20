@@ -28,6 +28,10 @@ jobs:
         run: |
           docker build -t baseimage .
 
+      - name: Test image run
+        run: |
+          docker run baseimage echo "Docker finish"
+
 
       - name: tag and push docker
         run: |
