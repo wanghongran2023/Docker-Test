@@ -8,7 +8,7 @@ RUN apt update && \
     apt install python3.9 python3.9-venv python3.9-dev -y
     
 RUN apt install python3-pip -y && \
-    python3 -m pip install --upgrade pip 
+    python3 -m pip install --upgrade pip  --break-system-packages
 
 RUN mkdir ~/airflow && \
     cd ~/airflow && \
