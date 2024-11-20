@@ -1,4 +1,4 @@
-FROM ubunte:latest
+FROM ubuntu:latest
 
 RUN sudo apt-get update
 
