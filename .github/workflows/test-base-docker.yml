@@ -1,0 +1,35 @@
+name: test-base-docker
+
+on:
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  BuildBaseImage:
+    name: Build a base image that have node installed
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to ECR
+        run: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin 367479749599.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+
+      - name: Build Base Image
+        working_directory:airflowbase
+        run: |
+          docker build -t baseimage .
+
+
+      - name: tag and push docker
+        run: |
+          docker tag baseimage 367479749599.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}:baseimage
+          docker push 367479749599.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}:baseimage
