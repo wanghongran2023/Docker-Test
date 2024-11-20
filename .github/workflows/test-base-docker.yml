@@ -30,7 +30,7 @@ jobs:
 
       - name: Test image run
         run: |
-          docker run baseimage echo "Docker finish"
+          docker run baseimage python -V
 
 
       - name: tag and push docker
