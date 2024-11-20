@@ -32,5 +32,5 @@ jobs:
       - name: tag and push docker
         run: |
           GIT_HASH=$(git rev-parse --short HEAD)
-          docker tag airflowbaseimage 367479749599.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}:${GIT_HASH}
+          docker tag airflowbaseimage:${GIT_HASH} 367479749599.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}:${GIT_HASH}
           docker push 367479749599.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPO }}:${GIT_HASH}
