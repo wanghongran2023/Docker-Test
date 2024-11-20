@@ -27,3 +27,12 @@ RUN mkdir ~/airflow && \
     pip install "apache-airflow[aws]"=="${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}" && \
     export AIRFLOW_HOME=~/airflow
 
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+EXPOSE 8080
+
+ENV AIRFLOW_HOME=~/airflow
+WORKDIR ${AIRFLOW_HOME}
+
+ENTRYPOINT ["/start.sh"]
