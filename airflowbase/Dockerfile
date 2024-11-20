@@ -16,23 +16,25 @@ RUN wget https://bootstrap.pypa.io/get-pip.py && \
 # Upgrade pip after installation
 RUN python3.9 -m pip install --upgrade pip
 
+# Set Airflow path
+ENV AIRFLOW_HOME=/root/airflow
+
 # Set up Airflow
-RUN mkdir ~/airflow && \
-    cd ~/airflow && \
+RUN mkdir ${AIRFLOW_HOME} && \
+    cd ${AIRFLOW_HOME} && \
     python3.9 -m venv venv && \
     . venv/bin/activate && \
     export AIRFLOW_VERSION=2.7.3 && \
     export PYTHON_VERSION="$(python --version | cut -d ' ' -f2 | cut -d '.' -f1-2)" && \
     export CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt" && \
     pip install "apache-airflow[aws]"=="${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}" && \
-    export AIRFLOW_HOME=~/airflow
+    export AIRFLOW_HOME=${AIRFLOW_HOME}
 
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
 EXPOSE 8080
 
-ENV AIRFLOW_HOME=~/airflow
 WORKDIR ${AIRFLOW_HOME}
 
 ENTRYPOINT ["/start.sh"]
