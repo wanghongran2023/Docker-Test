@@ -8,11 +8,11 @@ RUN apt update && \
     apt install python3.9 python3.9-venv python3.9-dev -y
     
 RUN apt install python3-pip -y && \
-    python3 -m pip install --upgrade pip 
+    python -m pip install --upgrade pip 
 
 RUN mkdir ~/airflow && \
     cd ~/airflow && \
-    python3 -m venv venv && \
+    python -m venv venv && \
     source venv/bin/activate && \
     export AIRFLOW_VERSION=2.7.3 && \
     export PYTHON_VERSION="$(python --version | cut -d ' ' -f2 | cut -d '.' -f1-2)" && \
