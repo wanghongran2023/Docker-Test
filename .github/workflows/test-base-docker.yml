@@ -30,7 +30,7 @@ jobs:
 
       - name: Test image run
         run: |
-          docker run baseimage python -V
+          docker run baseimage python3 -V
 
 
       - name: tag and push docker
